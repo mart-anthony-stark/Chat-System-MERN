@@ -6,6 +6,9 @@ require("dotenv").config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Add routers
+app.use(require("./routes/user"));
+
 // Setup error handlers
 const errorHandler = require("./handlers/errorHandler");
 app.use(errorHandler.notFound);
