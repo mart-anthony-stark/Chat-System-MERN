@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Add routers
-app.use(require("./routes/user"));
+app.use("/auth", require("./routes/user"));
 
 // Setup error handlers
 const errorHandler = require("./handlers/errorHandler");
