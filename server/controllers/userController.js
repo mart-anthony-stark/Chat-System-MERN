@@ -11,6 +11,9 @@ exports.login = async (req, res) => {
 
   if (!user) throw "Email and Password did not match.";
 
+  const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    expiresIn: "3d",
+  });
   res.json({
     message: "User logged in successfully!",
     token,
