@@ -8,6 +8,7 @@ const makeToast = (type, msg) => {
     icon: type,
     title: msg,
     footer: "Copyright 2018",
+    position: "top-end",
     didOpen: () => {
       // `MySwal` is a subclass of `Swal`
       //   with all the same instance & static methods
