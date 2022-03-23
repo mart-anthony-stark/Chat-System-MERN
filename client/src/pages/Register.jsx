@@ -1,6 +1,10 @@
-import React from "react";
+import axios from "axios";
 
 const Login = () => {
+  const nameRef = React.createRef();
+  const emailRef = React.createRef();
+  const passwordRef = React.createRef();
+
   return (
     <div className="card">
       <div className="cardHeader">Registration</div>
