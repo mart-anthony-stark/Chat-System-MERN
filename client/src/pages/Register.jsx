@@ -8,7 +8,7 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     axios
-      .post("/user/register", {
+      .post("http://localhost:8080/auth/register", {
         name,
         email,
         password,
@@ -19,7 +19,7 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
-        makeToast("error", err.res.data.message);
+        makeToast("success", err.res.data.message);
       });
   };
 
