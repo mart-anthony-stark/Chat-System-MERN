@@ -1,9 +1,31 @@
+import { createRef } from "react";
 import axios from "axios";
+import makeToast from "../Toaster";
 
 const Login = () => {
-  const nameRef = React.createRef();
-  const emailRef = React.createRef();
-  const passwordRef = React.createRef();
+  const handleRegister = () => {
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    axios
+      .post("/user/register", {
+        name,
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        makeToast("success", res.data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+        makeToast("error", err.res.data.message);
+      });
+  };
+
+  const nameRef = createRef();
+  const emailRef = createRef();
+  const passwordRef = createRef();
 
   return (
     <div className="card">
@@ -11,7 +33,13 @@ const Login = () => {
       <div className="cardBody">
         <div className="inputGroup">
           <label htmlFor="name">Name</label>
-          <input type="test" name="name" id="name" placeholder="John Doe" />
+          <input
+            type="test"
+            name="name"
+            id="name"
+            placeholder="John Doe"
+            ref={nameRef}
+          />
         </div>
         <div className="inputGroup">
           <label htmlFor="email">Email</label>
@@ -20,6 +48,7 @@ const Login = () => {
             name="email"
             id="email"
             placeholder="abc@example.com"
+            ref={emailRef}
           />
         </div>
         <div className="inputGroup">
@@ -29,9 +58,10 @@ const Login = () => {
             name="password"
             id="password"
             placeholder="Your Password"
+            ref={passwordRef}
           />
         </div>
-        <button>Register</button>
+        <button onClick={handleRegister}>Register</button>
       </div>
     </div>
   );
