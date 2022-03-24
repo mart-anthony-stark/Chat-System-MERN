@@ -10,6 +10,7 @@ const IndexPage = () => {
     } else {
       navigate("/dashboard");
     }
+    // eslint-disable-next-line
   }, []);
   return <div>Home Page</div>;
 };
