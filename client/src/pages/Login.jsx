@@ -2,8 +2,10 @@ import { useRef } from "react";
 import Toast from "../Toast";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate()
   const emailRef = useRef();
   const passwordRef = useRef();
 
