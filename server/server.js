@@ -23,11 +23,15 @@ io.use(async (socket, next) => {
   try {
     const token = socket.handshake.query.token;
     const payload = await jwt.verify(token, process.env.JWT_SECRET);
-    socket.usereId = payload.id;
+    socket.userId = payload.id;
     next();
   } catch (error) {}
 });
 
 io.on("connection", (socket) => {
-  
+  console.log("Connected to socket");
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected " + socket.userId);
+  });
 });
