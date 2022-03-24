@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [chatrooms, setChatrooms] = useState([]);
@@ -38,7 +39,9 @@ const Login = () => {
           {chatrooms.map((room) => (
             <div className="chatroom" key={room._id}>
               <div>{room.name}</div>
-              <div className="join">Join</div>
+              <Link to={`/chatroom/${room._id}`}>
+                <div className="join">Join</div>
+              </Link>
             </div>
           ))}
         </div>
