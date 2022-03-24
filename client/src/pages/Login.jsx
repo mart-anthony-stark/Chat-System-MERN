@@ -1,7 +1,9 @@
 import {useRef} from 'react'
 
 const Login = () => {
-
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  
   const handleRegister = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -43,6 +45,7 @@ const Login = () => {
             name="email"
             id="email"
             placeholder="abc@example.com"
+            ref={emailRef}
           />
         </div>
         <div className="inputGroup">
@@ -52,6 +55,7 @@ const Login = () => {
             name="password"
             id="password"
             placeholder="Your Password"
+            ref={passwordRef}
           />
         </div>
         <button>Login</button>
