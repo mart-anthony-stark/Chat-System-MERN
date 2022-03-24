@@ -1,21 +1,23 @@
-import {useRef} from 'react'
+import { useRef } from "react";
+import Toast from "../Toast";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  
-  const handleRegister = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleLogin = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     axios
-      .post("http://localhost:8080/auth/register", {
-        name,
+      .post("http://localhost:8080/auth/login", {
         email,
         password,
       })
       .then((res) => {
         toast.success(res.data.message);
-        navigate("/login");
+        navigate("/dashboard");
       })
       .catch((error) => {
         if (error.response) {
@@ -58,7 +60,7 @@ const Login = () => {
             ref={passwordRef}
           />
         </div>
-        <button>Login</button>
+        <button onClick={handleLogin}>Login</button>
       </div>
     </div>
   );
