@@ -16,16 +16,16 @@ const Login = () => {
         password,
       })
       .then((res) => {
-        console.log(res);
         toast.success(res.data.message);
-        // navigate("/dashboard");
+        localStorage.setItem("CC_Token", res.data.token);
+        navigate("/dashboard");
       })
       .catch((error) => {
         if (error.response) {
           // Request made and server responded
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          // console.log(error.response.data);
+          // console.log(error.response.status);
+          // console.log(error.response.headers);
           toast.error(error.response.data.message);
         } else if (error.request) {
           // The request was made but no response was received
