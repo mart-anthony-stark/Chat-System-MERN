@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -20,7 +20,7 @@ const Login = () => {
       .then((res) => {
         toast.success(res.data.message);
         localStorage.setItem("CC_Token", res.data.token);
-        navigate("/dashboard");
+        navigate("/");
       })
       .catch((error) => {
         if (error.response) {
