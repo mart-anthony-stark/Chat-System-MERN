@@ -1,5 +1,5 @@
-const Login = () => {
+const Chatroom = () => {
   return <div>Chatroom Page</div>;
 };
 
-export default Login;
+export default Chatroom;
