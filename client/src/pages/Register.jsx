@@ -2,8 +2,11 @@ import { createRef } from "react";
 import axios from "axios";
 import Toast from "../Toast";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
+  const navigate = useNavigate();
+
   const handleRegister = () => {
     const name = nameRef.current.value;
     const email = emailRef.current.value;
@@ -15,8 +18,8 @@ const Login = () => {
         password,
       })
       .then((res) => {
-        console.log(res.data);
         toast.success(res.data.message);
+        navigate("/login");
       })
       .catch((error) => {
         if (error.response) {
@@ -82,4 +85,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
