@@ -60,6 +60,8 @@ io.on("connection", (socket) => {
         name: user.name,
         user: socket.userId,
       });
+
+      await newMessage.save();
     }
   });
 });
