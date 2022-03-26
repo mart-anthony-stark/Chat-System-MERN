@@ -18,6 +18,7 @@ exports.createChatroom = async (req, res) => {
   await chatroom.save();
   res.json({
     message: "Chatroom created!",
+    room: chatroom,
   });
 };
 
