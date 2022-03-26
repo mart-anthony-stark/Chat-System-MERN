@@ -2,10 +2,17 @@ import { useParams, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 const Chatroom = ({ socket }) => {
+  const [messages, setMessages] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    if (socket) socket.emit("joinRoom", { chatroomId: id });
+    if (socket) {
+      socket.emit("joinRoom", { chatroomId: id });
+
+      socket.on("newMessage", ({ message, userId, name }) => {
+        setMessages([...messages, { message, name }]);
+      });
+    }
     return () => {
       if (socket) socket.emit("leaveRoom", { chatroomId: id });
     };
