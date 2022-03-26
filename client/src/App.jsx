@@ -26,18 +26,24 @@ function App() {
         toast.info("Socket Disconnected");
       });
 
-      newSocket.on("connection", () => {
-        toast.info("Socket Connected");
+      newSocket.on("connect", () => {
+        toast.success("Socket Connected");
       });
+
+      setSocket(newSocket);
     }
   };
+
+  useEffect(() => {
+    setupSocket();
+  }, []);
   return (
     <div className="App">
       <Toast />
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setupSocket={setupSocket} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/chatroom/:id" element={<Chatroom />} />
