@@ -5,8 +5,8 @@ const Chatroom = ({ socket }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    socket.emit("joinRoom", { chatroomId: id });
-  }, []);
+    if (socket) socket.emit("joinRoom", { chatroomId: id });
+  }, [socket]);
 
   return (
     <div className="chattroomPage">
