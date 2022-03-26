@@ -1,13 +1,39 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/index";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Chatroom from "./pages/Chatroom";
+import io from "socket.io-client";
+import Toast from "./Toast";
+import { toast } from "react-toastify";
 
 function App() {
+  const [socket, setSocket] = useState(null);
+  const setupSocket = () => {
+    const token = localStorage.getItem("CC_Token");
+    if (token.length > 0 && !socket) {
+      const newSocket = io("http://localhost:8080", {
+        query: {
+          token,
+        },
+      });
+
+      newSocket.on("disconnect", () => {
+        setSocket(null);
+        setTimeout(setupSocket, 3000);
+        toast.info("Socket Disconnected");
+      });
+
+      newSocket.on("connection", () => {
+        toast.info("Socket Connected");
+      });
+    }
+  };
   return (
     <div className="App">
+      <Toast />
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -15,7 +41,6 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/chatroom/:id" element={<Chatroom />} />
-          
         </Routes>
       </Router>
     </div>
