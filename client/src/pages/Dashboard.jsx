@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const [chatrooms, setChatrooms] = useState([]);
@@ -27,17 +28,26 @@ const Dashboard = () => {
   const createChatroom = async () => {
     const name = chatroomName.current.value;
     axios
-      .post("http://localhost:8080/chatroom", {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("CC_Token")}`,
+      .post(
+        "http://localhost:8080/chatroom",
+        {
+          name,
         },
-        body: JSON.stringify({ name }),
-      })
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("CC_Token")}`,
+          },
+        }
+      )
       .then((res) => {
-        setChatrooms(...chatrooms, res.data);
+        // console.log(res.data.room);
+        const newRoom = res.data.room;
+        setChatrooms([...chatrooms, newRoom]);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.data.message) {
+          toast.error(error.response.data.message);
+        }
       });
   };
   return (
