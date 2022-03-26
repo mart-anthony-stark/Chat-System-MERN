@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [chatrooms, setChatrooms] = useState([]);
+  const chatroomName = useRef();
+
   useEffect(() => {
     getChatrooms();
   }, []);
@@ -23,11 +25,13 @@ const Dashboard = () => {
   };
 
   const createChatroom = async () => {
+    const name = chatroomName.current.value;
     axios
       .post("http://localhost:8080/chatroom", {
         headers: {
           authorization: `bearer ${localStorage.getItem("CC_Token")}`,
         },
+        body: JSON.stringify({ name }),
       })
       .then((res) => {
         setChatrooms(...chatrooms, res.data);
@@ -47,6 +51,7 @@ const Dashboard = () => {
             name="chatroomName"
             id="chatroomName"
             placeholder="ChatterBox"
+            ref={chatroomName}
           />
         </div>
         <button onClick={createChatroom}>Create Chatroom</button>

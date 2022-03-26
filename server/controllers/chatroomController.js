@@ -2,6 +2,7 @@ const Chatroom = require("../models/Chatroom");
 
 exports.createChatroom = async (req, res) => {
   const { name } = req.body;
+  console.log(name);
   const nameRegex = /^[A-Za-z\s]+$/;
 
   if (!nameRegex.test(name)) throw "Chatroom name can contain only alphabets.";
