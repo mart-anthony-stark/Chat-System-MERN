@@ -43,10 +43,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login setupSocket={setupSocket} />} />
+          <Route path="/login" element={<Login setupSocket={setSocket} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/chatroom/:id" element={<Chatroom />} />
+          <Route path="/dashboard" element={<Dashboard socket={socket} />} />
+          <Route path="/chatroom/:id" element={<Chatroom socket={socket} />} />
         </Routes>
       </Router>
     </div>
