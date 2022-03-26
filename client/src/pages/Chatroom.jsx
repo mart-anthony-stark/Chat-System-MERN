@@ -5,6 +5,7 @@ const Chatroom = ({ socket }) => {
   const [messages, setMessages] = useState([]);
   const { id } = useParams();
   const messageRef = useRef();
+  const [userId, setUserId] = useState("");
 
   const handleSend = () => {
     const msg = messageRef.current.value;
@@ -19,24 +20,28 @@ const Chatroom = ({ socket }) => {
     messageRef.current.value = "";
   };
 
-  // const getMessages = async() => {
-  //   const res = await fetch("http://localhost:8080/")
-  // }
-
-  useEffect(() => {}, []);
-
   useEffect(() => {
     if (socket) {
       socket.emit("joinRoom", { chatroomId: id });
-
-      socket.on("newMessage", ({ message, userId, name }) => {
-        setMessages([...messages, { message, name }]);
-      });
     }
     return () => {
       if (socket) socket.emit("leaveRoom", { chatroomId: id });
     };
-  }, [socket]);
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("CC_Token");
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      setUserId(payload.id);
+    }
+    if (socket) {
+      socket.on("newMessage", (message) => {
+        const newMessages = [...messages, message];
+        setMessages(newMessages);
+      });
+    }
+  }, [messages]);
 
   return (
     <div className="chattroomPage">
@@ -45,7 +50,12 @@ const Chatroom = ({ socket }) => {
         <div className="chatroomContent">
           {messages.map((msg, i) => (
             <div className="message" key={i}>
-              <span className="otherMessage">{msg.name}: </span> {msg.message}
+              <span
+                className={userId == msg.user ? "ownMessage" : "otherMessage"}
+              >
+                {msg.name}:{" "}
+              </span>{" "}
+              {msg.message}
             </div>
           ))}
         </div>
