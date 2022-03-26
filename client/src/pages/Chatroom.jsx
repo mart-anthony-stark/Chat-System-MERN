@@ -4,6 +4,10 @@ import { useEffect } from "react";
 const Chatroom = ({ socket }) => {
   const { id } = useParams();
 
+  useEffect(() => {
+    socket.emit("joinRoom", { chatroomId: id });
+  }, []);
+
   return (
     <div className="chattroomPage">
       <div className="chatroomSection">
