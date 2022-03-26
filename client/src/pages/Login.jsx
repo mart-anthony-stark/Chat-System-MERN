@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({setupSocket}) => {
+const Login = ({ setupSocket }) => {
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -21,6 +21,7 @@ const Login = ({setupSocket}) => {
         toast.success(res.data.message);
         localStorage.setItem("CC_Token", res.data.token);
         navigate("/");
+        setupSocket();
       })
       .catch((error) => {
         if (error.response) {
