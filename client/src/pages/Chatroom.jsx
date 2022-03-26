@@ -6,6 +6,9 @@ const Chatroom = ({ socket }) => {
 
   useEffect(() => {
     if (socket) socket.emit("joinRoom", { chatroomId: id });
+    return () => {
+      if (socket) socket.emit("leaveRoom", { chatroomId: id });
+    };
   }, [socket]);
 
   return (
