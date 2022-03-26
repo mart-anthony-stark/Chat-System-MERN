@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Dashboard = () => {
   const [chatrooms, setChatrooms] = useState([]);
   useEffect(() => {
     getChatrooms();
@@ -50,4 +50,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Dashboard;
