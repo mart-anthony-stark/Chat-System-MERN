@@ -36,6 +36,10 @@ function App() {
 
   useEffect(() => {
     setupSocket();
+
+    return () => {
+      socket.off("message:new");
+    };
   }, []);
   return (
     <div className="App">
