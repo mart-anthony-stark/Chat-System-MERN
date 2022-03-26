@@ -21,6 +21,21 @@ const Dashboard = () => {
         console.log(error);
       });
   };
+
+  const createChatroom = async () => {
+    axios
+      .post("http://localhost:8080/chatroom", {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("CC_Token")}`,
+        },
+      })
+      .then((res) => {
+        setChatrooms(...chatrooms, res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="card">
       <div className="cardHeader">Chatrooms</div>
@@ -34,7 +49,7 @@ const Dashboard = () => {
             placeholder="ChatterBox"
           />
         </div>
-        <button>Create Chatroom</button>
+        <button onClick={createChatroom}>Create Chatroom</button>
         <div className="chatrooms">
           {chatrooms.map((room) => (
             <div className="chatroom" key={room._id}>
