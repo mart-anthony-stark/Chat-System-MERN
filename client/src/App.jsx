@@ -13,7 +13,7 @@ function App() {
   const [socket, setSocket] = useState(null);
   const setupSocket = () => {
     const token = localStorage.getItem("CC_Token");
-    if (token.length > 0 && !socket) {
+    if (token && !socket) {
       const newSocket = io("http://localhost:8080", {
         query: {
           token,
@@ -43,7 +43,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login setupSocket={setSocket} />} />
+          <Route path="/login" element={<Login setupSocket={setupSocket} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard socket={socket} />} />
           <Route path="/chatroom/:id" element={<Chatroom socket={socket} />} />
