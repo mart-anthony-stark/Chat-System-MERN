@@ -34,4 +34,8 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Disconnected " + socket.userId);
   });
+
+  socket.on("joinRoom", (props) => {
+    console.log(props);
+  });
 });
