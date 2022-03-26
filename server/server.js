@@ -29,7 +29,7 @@ io.use(async (socket, next) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("Connected to socket");
+  console.log("Connected to socket: " + socket.userId);
 
   socket.on("disconnect", () => {
     console.log("Disconnected " + socket.userId);
